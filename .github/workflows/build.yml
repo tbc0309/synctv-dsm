@@ -1,4 +1,4 @@
-name: Build and publish Synology DSM 7.2 binaries
+name: 编译并发布 SyncTV DSM 7.2 二进制
 
 on:
   push:
