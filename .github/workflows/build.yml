@@ -113,6 +113,9 @@ jobs:
           linker="$(find "${RUNNER_TEMP}/synology-toolchain" \( -type f -o -type l \) -path '*/bin/*-gcc' -print -quit)"
           [[ -n "${linker}" ]] || exit 1
           prefix="${linker%-gcc}"
+          lld="$(command -v ld.lld)"
+          [[ -n "${lld}" ]] || exit 1
+          ln -s "${lld}" "${prefix}-ld.lld"
           rust_suffix="$(tr '[:lower:]-' '[:upper:]_' <<< '${{ matrix.rust_target }}')"
           cc_suffix="$(tr '-' '_' <<< '${{ matrix.rust_target }}')"
           echo "CARGO_TARGET_${rust_suffix}_LINKER=${linker}" >> "${GITHUB_ENV}"
