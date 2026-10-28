@@ -115,9 +115,9 @@ jobs:
           prefix="${linker%-gcc}"
           lld="$(command -v ld.lld)"
           [[ -n "${lld}" ]] || exit 1
-          sudo ln -s "${lld}" "${prefix}-ld.lld"
           rust_suffix="$(tr '[:lower:]-' '[:upper:]_' <<< '${{ matrix.rust_target }}')"
           cc_suffix="$(tr '-' '_' <<< '${{ matrix.rust_target }}')"
+          echo "COMPILER_PATH=$(dirname "${lld}")" >> "${GITHUB_ENV}"
           echo "CARGO_TARGET_${rust_suffix}_LINKER=${linker}" >> "${GITHUB_ENV}"
           echo "CC_${cc_suffix}=${linker}" >> "${GITHUB_ENV}"
           echo "AR_${cc_suffix}=${prefix}-ar" >> "${GITHUB_ENV}"
